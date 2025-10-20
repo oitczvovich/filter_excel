@@ -1,0 +1,11 @@
+[project]
+name = "filter-excel"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "openpyxl>=3.1.5",
+    "pydantic>=2.12.3",
+    "pysimplegui>=5.0.8.3",
+]
