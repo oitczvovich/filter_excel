@@ -48,7 +48,7 @@
 # Создать переменное окружение
 python -m venv .venv
 # Запусьтить окружение
-source .venv/bin/activate
+.venv\Scripts\activate.bat
 
 # Установите зависимости 
 pip install -r requirements.txt

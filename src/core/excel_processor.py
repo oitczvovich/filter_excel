@@ -118,16 +118,17 @@ class ExcelProcessor:
         return ProcessingResult(success=True, message="Валидация пройдена", output_path=None)
 
     def _filter_data(self, sheet, request, header_info, required_columns):
-
         try:
             with self._save_file_context(request.target_path) as (wb_out, sheet_out, start_row):
                 self._format_header(sheet_out, start_row, required_columns)
+                min_row_table = header_info[1] + 1
+                actual_filter_column_lower = {key.lower(): value for key, value in header_info[0].items()}
+                index_filter_column = actual_filter_column_lower[request.filter_column]
 
-                index_filter_column = header_info[0][request.filter_column]
                 date_start_row = start_row + 1
                 found = False
 
-                for row_value in sheet.iter_rows(values_only=True, min_row=header_info[1] + 1):
+                for row_value in sheet.iter_rows(values_only=True, min_row=min_row_table):
                     value = row_value[index_filter_column]
                     if self._compare_values(value, request.filter_item):
                         found = True
@@ -192,9 +193,7 @@ class ExcelProcessor:
     def _get_index_filter_columns(self, sheet, request, required_columns):
         """
         Находим строку с заголовками в которой содержится название столбца из filter_column.
-        Возвращаем индексы колонок и номер строки с заголовками.
-        {'ФИО': 1, 'Должность': 4, 'Отдел': 6, 'Дата найма': 7, 'Зарплата': 5} 9
-        Если в файле нет обязательных столбцов или нет
+        Возвращаем кортеж: (columns_index, row_index)
         """
         for row_index, row_value in enumerate(sheet.iter_rows(values_only=True), 1):
             if not row_value:
@@ -208,7 +207,6 @@ class ExcelProcessor:
                 for column_name in required_columns:
                     if column_name in row_value:
                         columns_index[column_name] = row_value.index(column_name)
-
                 return columns_index, row_index
 
         raise ValueError(f"Столбец '{request.filter_column}' не найден в файле или отсутвуют обязательные столбцы")
