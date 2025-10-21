@@ -3,9 +3,10 @@ import tkinter.messagebox as box
 from  adapter.processor_adapter import ProcessorAdapter
 
 class Execute_Frame(tk.Label):
-    def __init__(self, parent, request):
+    def __init__(self, parent, request, adapter):
         super().__init__(parent)
         self.request = request
+        self.adapter = adapter
         self._build_ui()
         
     def _build_ui(self):
@@ -20,6 +21,7 @@ class Execute_Frame(tk.Label):
             'filter_column': 'Необходимо указать столбец для фильтрации',
             'filter_item': 'Необходимо указать значение',
         }
+        
         for field, error_message in required_fields.items():
             value = getattr(self.request, field, None)
             if not value:
@@ -27,4 +29,9 @@ class Execute_Frame(tk.Label):
                 return None
         print(self.request)
         
+        try:
+            self.adapter.execute_processing(self.request)
+            box.showinfo('Готово', f'Файл успешно сохранен в:\n{self.request.target_path}')
+        except Exception as e:
+            box.showerror('Ошибка обработки', str(e))
         

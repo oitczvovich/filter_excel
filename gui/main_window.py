@@ -42,12 +42,5 @@ class MainWindow():
         self.save_frame.pack(padx=10, pady=10, fill='x')
 
         ##4. Выполнение
-        self.execute_frame = Execute_Frame(self.root, self.request)
+        self.execute_frame = Execute_Frame(self.root, self.request, self.adapter)
         self.execute_frame.pack(padx=10,pady=10, fill='x')
-
-    # def _select_column(self):
-    #     column = self.listbox.get(self.listbox.curselection())
-    #     self.request.filter_column = column
-    #     box.showinfo('Выберите столбец для фильтрации', f'Фильтрация по столбцу {column}')
-
-

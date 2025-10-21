@@ -63,7 +63,10 @@ class Filter_Frame(tk.LabelFrame):
             }
             box.showerror('Ошибка', error_messages[column])
             return None
-        self.request.filter_item = value.lower()
+        if self.request.filter_column == Columns.SALARY.value:
+            self.request.filter_item = float(value)
+        else:
+            self.request.filter_item = value.lower()
         return value
 
 

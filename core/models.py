@@ -13,7 +13,7 @@ class ProcessingRequest(BaseModel):
     source_path: str
     target_path: str
     filter_column: str
-    filter_item: str
+    filter_item: str | float
     
 class ProcessingResult(BaseModel):
     success: bool
