@@ -41,11 +41,11 @@
 # Для использования
 
 Клонируйте репозиторий к себе на компьютер.
-В корневой папке нужно создать виртуальное окружение и установить зависимости.
 
 **Если используете pip**
-Создайте переменное окружение 
+В корневой папке нужно создать виртуальное окружение и установить зависимости.
 ```bash
+# Создать переменное окружение
 python -m venv .venv
 # Запусьтить окружение
 source .venv/bin/activate
@@ -60,6 +60,14 @@ python main.py
 **Если используете uv**
 ```bash
 uv sync
-source .venv/bin/activate
-python main.py
+uv run python main.py
 ```
+
+
+
+### Авторы проекта
+Скалацкий Владимир
+
+e-mail: skalakcii@yandex.ru
+<br>tellegram: @OitcZvovich
+<br>https://github.com/oitczvovi
