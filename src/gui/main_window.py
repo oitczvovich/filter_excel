@@ -21,7 +21,8 @@ class MainWindow():
         self._setup_ui()
 
     def _setup_ui(self):
-        icon = tk.PhotoImage(file='/home/oitc/Dev/filter_excel/src/gui/icon.png')
+        icon_path = 'src/gui/icon.png'
+        icon = tk.PhotoImage(file=icon_path)
         self.root.iconphoto(True, icon)
 
         # # 1.  Указываем адрем файла
